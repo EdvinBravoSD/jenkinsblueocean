@@ -1,9 +1,32 @@
 pipeline {
   agent any
   stages {
-    stage('docker build') {
+    stage('build') {
+      parallel {
+        stage('build') {
+          steps {
+            echo 'Building'
+          }
+        }
+
+        stage('ParallelBuild') {
+          steps {
+            echo 'ParallelBuild'
+          }
+        }
+
+      }
+    }
+
+    stage('Test') {
       steps {
-        sh 'docker build -t hello_there .'
+        echo 'Testing'
+      }
+    }
+
+    stage('Deploy') {
+      steps {
+        echo 'Deploying'
       }
     }
 
